@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
+import { Airline } from "./api/airline/model/airline.model";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,6 +11,6 @@ export const AppDataSource = new DataSource({
   database: String(process.env.DB_DATABASE),
   synchronize: true,
   logging: false,
-  entities: [],
+  entities: [Airline],
   migrations: ["src/migration/**/*.ts"],
 });
