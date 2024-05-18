@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import { Airline } from "./api/airline/model/airline.model";
 import { Airport } from "./api/airport/model/airport.model";
+import { Flight } from "./api/flight/model/flight.model";
 import "dotenv/config";
 
 export const AppDataSource = new DataSource({
@@ -12,6 +13,6 @@ export const AppDataSource = new DataSource({
   database: String(process.env.DB_DATABASE),
   synchronize: true,
   logging: false,
-  entities: [Airline, Airport],
+  entities: [Airline, Airport, Flight],
   migrations: ["src/migrations/*.ts"],
 });
