@@ -12,5 +12,5 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: false,
   entities: [Airline],
-  migrations: ["src/migration/**/*.ts"],
+  migrations: ["src/migrations/*.ts"],
 });
