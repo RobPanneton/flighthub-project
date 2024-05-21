@@ -40,19 +40,41 @@ export class FlightController {
   async createFlight(req: Request, res: Response): Promise<Response> {
     try {
       const flightData = req.body;
-      if (
-        !flightData.airline ||
-        !flightData.number ||
-        !flightData.departure_airport ||
-        !flightData.departure_time ||
-        !flightData.arrival_airport ||
-        !flightData.arrival_time ||
-        !flightData.price
-      ) {
-        return res.status(400).json({ error: "Missing required flight data" });
+
+      // Check if flightData is an array
+      if (Array.isArray(flightData)) {
+        // Validate each flight in the array
+        for (const flight of flightData) {
+          if (
+            !flight.airline ||
+            !flight.number ||
+            !flight.departure_airport ||
+            !flight.departure_time ||
+            !flight.arrival_airport ||
+            !flight.arrival_time ||
+            !flight.price
+          ) {
+            return res.status(400).json({ error: "Missing required flight data in array" });
+          }
+        }
+        const newFlights = await this.flightService.createMany(flightData);
+        return res.status(201).json(newFlights);
+      } else {
+        // Validate single flight object
+        if (
+          !flightData.airline ||
+          !flightData.number ||
+          !flightData.departure_airport ||
+          !flightData.departure_time ||
+          !flightData.arrival_airport ||
+          !flightData.arrival_time ||
+          !flightData.price
+        ) {
+          return res.status(400).json({ error: "Missing required flight data" });
+        }
+        const newFlight = await this.flightService.create(flightData);
+        return res.status(201).json(newFlight);
       }
-      const newFlight = await this.flightService.create(flightData);
-      return res.status(201).json(newFlight);
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(500).json({ error: error.message });
