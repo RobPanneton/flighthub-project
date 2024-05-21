@@ -37,6 +37,16 @@ export class FlightService {
     }
   }
 
+  async createMany(flightDataArray: Partial<Flight>[]): Promise<Flight[]> {
+    try {
+      const flights = this.flightRepository.create(flightDataArray);
+      return await this.flightRepository.save(flights);
+    } catch (error) {
+      console.error("Error creating flights:", error);
+      throw new Error("Error creating flights");
+    }
+  }
+
   async update(id: number, flightData: Partial<Flight>): Promise<void> {
     try {
       const updateResult = await this.flightRepository.update(id, flightData);
