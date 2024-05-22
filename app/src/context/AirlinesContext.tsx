@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { AirlinesContextType } from "../types/airlineTypes";
 
 export const AirlinesContext = createContext<AirlinesContextType | null>(null);
@@ -23,4 +23,11 @@ export const AirlinesProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [apiURL]);
 
   return <AirlinesContext.Provider value={{ airlines }}>{children}</AirlinesContext.Provider>;
+};
+
+export const useAirlinesContext = () => {
+  const context = useContext(AirlinesContext);
+  if (context === null) throw new Error("useTranscriptContext must be used within a TranscriptProvider");
+
+  return context;
 };

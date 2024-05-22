@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { AirportsContextType } from "../types/airportTypes";
 
 export const AirportsContext = createContext<AirportsContextType | null>(null);
@@ -22,4 +22,11 @@ export const AirportsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [apiURL]);
 
   return <AirportsContext.Provider value={{ airports }}>{children}</AirportsContext.Provider>;
+};
+
+export const useAirportsContext = () => {
+  const context = useContext(AirportsContext);
+  if (context === null) throw new Error("useTranscriptContext must be used within a TranscriptProvider");
+
+  return context;
 };
