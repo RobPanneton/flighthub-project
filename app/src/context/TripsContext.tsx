@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
+import { TripsContextType } from "../types/tripTypes";
 
-export const TripsContext = createContext<any | null>(null);
+export const TripsContext = createContext<TripsContextType | null>(null);
 
 export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [trips, setTrips] = useState<any>([]);
@@ -18,5 +19,5 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       console.error("Error fetching trips:", e);
     }
   };
-  return <TripsContext.Provider value={{ trips, fetchTrips }}>{children}</TripsContext.Provider>;
+  return <TripsContext.Provider value={{ trips }}>{children}</TripsContext.Provider>;
 };
