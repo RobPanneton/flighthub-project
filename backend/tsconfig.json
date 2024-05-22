@@ -11,11 +11,6 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/index.ts",
-    "src/ormconfig.ts",
-    "node_modules/typeorm/cli.js"
-  ],
+  "include": ["src/**/*.ts", "src/index.ts", "src/ormconfig.ts", "node_modules/typeorm/cli.js"],
   "exclude": ["node_modules, build"]
 }

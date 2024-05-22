@@ -1,10 +1,13 @@
 import React from "react";
 import { AirportsProvider } from "../context/AirportsContext";
+import { TripsProvider } from "../context/TripsContext";
 
 export const Homepage: React.FC = () => {
   return (
     <AirportsProvider>
-      <div>homepage</div>
+      <TripsProvider>
+        <div>homepage</div>
+      </TripsProvider>
     </AirportsProvider>
   );
 };
