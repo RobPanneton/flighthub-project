@@ -1,0 +1,23 @@
+@import "../../../variables.scss";
+
+.header {
+  padding: 0 15px;
+  border-bottom: 1px solid $color-border-gray;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .headerLogo {
+    height: 37px;
+    width: 165px;
+    margin: 5px 0;
+
+    background-image: url("../../../assets/logo-flighthub-black.svg");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+  }
+
+  .menu {
+  }
+}
