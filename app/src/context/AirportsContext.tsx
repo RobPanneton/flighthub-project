@@ -12,7 +12,6 @@ export const AirportsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       try {
         const res = await fetch(`${apiURL}/airports`);
         const data = await res.json();
-        console.log({ data });
         setAirports(data);
       } catch (e) {
         console.error(e);
