@@ -1,4 +1,4 @@
-export type AirlineContext = {
+export type AirlinesContextType = {
   airlines: Airline[] | null;
 };
 

@@ -7,7 +7,7 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const apiURL = process.env.REACT_APP_FLIGHT_API_URL;
 
-  const fetchTrips = async (departure: any, destination: any, date: any) => {
+  const fetchTrips = async (departure: string, destination: string, date: string) => {
     try {
       const res = await fetch(
         `${apiURL}/trips/suggestions?departure=${departure}&destination=${destination}&date=${date}`

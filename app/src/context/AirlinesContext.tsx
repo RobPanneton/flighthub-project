@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
-import { AirlineContext } from "../types/airlineTypes";
+import { AirlinesContextType } from "../types/airlineTypes";
 
-export const AirlinesContext = createContext<AirlineContext | null>(null);
+export const AirlinesContext = createContext<AirlinesContextType | null>(null);
 
 export const AirlinesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [airlines, setAirlines] = useState([]);
