@@ -18,6 +18,8 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } catch (e) {
       console.error("Error fetching trips:", e);
     }
+    return;
   };
-  return <TripsContext.Provider value={{ trips }}>{children}</TripsContext.Provider>;
+
+  return <TripsContext.Provider value={{ trips, fetchTrips }}>{children}</TripsContext.Provider>;
 };

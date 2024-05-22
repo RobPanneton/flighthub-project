@@ -1,5 +1,6 @@
 export type TripsContextType = {
   trips: Flight[][];
+  fetchTrips: (departure: string, destination: string, date: string) => void;
 };
 
 export type Flight = {
