@@ -6,14 +6,17 @@ import { AirlinesProvider } from "../context/AirlinesContext";
 import { Header } from "../components/shared/header/Header";
 import { SearchHero } from "../components/search-hero/SearchHero";
 
+import styles from "./Homepage.module.scss";
+
 export const Homepage: React.FC = () => {
   return (
     <AirportsProvider>
       <AirlinesProvider>
         <TripsProvider>
-          <Header />
-          <SearchHero />
-          <div>homepage</div>
+          <div className={styles.wrapper}>
+            <Header />
+            <SearchHero />
+          </div>
         </TripsProvider>
       </AirlinesProvider>
     </AirportsProvider>

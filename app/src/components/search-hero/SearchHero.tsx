@@ -84,16 +84,16 @@ export const SearchHero: React.FC = () => {
               <input type='text' id='from' placeholder='Leaving from' />
             </div>
             <div className={styles.formRow}>
-              <label htmlFor='from'>From</label>
-              <input type='text' id='from' placeholder='Leaving from' />
+              <label htmlFor='from'>To</label>
+              <input type='text' id='from' placeholder='Going to' />
             </div>
             <div className={styles.formRow}>
-              <label htmlFor='from'>From</label>
-              <input type='text' id='from' placeholder='Leaving from' />
+              <label htmlFor='from'>Depart</label>
+              <input type='text' id='from' placeholder='Departure Date' />
             </div>
             <div className={styles.formRow}>
-              <label htmlFor='from'>From</label>
-              <input type='text' id='from' placeholder='Leaving from' />
+              <label htmlFor='from'>Return</label>
+              <input type='text' id='from' placeholder='Return Date' />
             </div>
           </div>
           <button type='submit' className={styles.submitButton}>
