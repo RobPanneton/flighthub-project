@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Loader } from "../shared/loader/Loader";
 import { useAirportsContext } from "../../context/AirportsContext";
+import { useTripsContext } from "../../context/TripsContext";
 
 import styles from "./SearchHero.module.scss";
 
-type TripOption = {
+type TripType = {
   text: string;
   value: string;
 };
@@ -17,12 +18,16 @@ type TripOption = {
 
 export const SearchHero: React.FC = () => {
   const { airports } = useAirportsContext();
+  const { fetchTrips } = useTripsContext();
 
   const [form, setForm] = useState<any>({
-    tripOption: "one-way",
+    trip_type: "one-way",
+    departure_airport: "",
+    arrival_airport: "",
+    departure_time: "",
   });
 
-  const tripOptions: TripOption[] = [
+  const tripTypes: TripType[] = [
     { text: "Round Trip", value: "round-trip" },
     { text: "One Way", value: "one-way" },
   ];
@@ -50,13 +55,16 @@ export const SearchHero: React.FC = () => {
   //   },
   // ];
 
-  const handleSubmit = () => 0;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetchTrips("YUL", "YVR", "07:35");
+  };
 
-  const handleTripOptionsClick = (e: any) => {
-    if (e.target.value === form.tripOPtion) return;
+  const handleTripTypeClick = (e: any) => {
+    if (e.target.value === form.trip_type) return;
     setForm({
       ...form,
-      tripOption: e.target.value,
+      trip_type: e.target.value,
     });
   };
 
@@ -65,14 +73,11 @@ export const SearchHero: React.FC = () => {
       {airports?.length ? (
         <form onSubmit={handleSubmit} className={styles.formContainer}>
           <ul className={styles.tripOptions}>
-            {tripOptions.map((option: TripOption, i: number) => {
+            {tripTypes.map((type: TripType, i: number) => {
               return (
-                <li
-                  key={`${i}-${option.value}`}
-                  className={`${option.value === form.tripOption ? styles.selected : ""}`}
-                >
-                  <button type='button' value={option.value} onClick={handleTripOptionsClick}>
-                    {option.text}
+                <li key={`${i}-${type.value}`} className={`${type.value === form.trip_type ? styles.selected : ""}`}>
+                  <button type='button' value={type.value} onClick={handleTripTypeClick}>
+                    {type.text}
                   </button>
                 </li>
               );
@@ -84,16 +89,16 @@ export const SearchHero: React.FC = () => {
               <input type='text' id='from' placeholder='Leaving from' />
             </div>
             <div className={styles.formRow}>
-              <label htmlFor='from'>To</label>
-              <input type='text' id='from' placeholder='Going to' />
+              <label htmlFor='to'>To</label>
+              <input type='text' id='to' placeholder='Going to' />
             </div>
             <div className={styles.formRow}>
-              <label htmlFor='from'>Depart</label>
-              <input type='text' id='from' placeholder='Departure Date' />
+              <label htmlFor='depart'>Depart</label>
+              <input type='text' id='depart' placeholder='Departure Date' />
             </div>
             <div className={styles.formRow}>
-              <label htmlFor='from'>Return</label>
-              <input type='text' id='from' placeholder='Return Date' />
+              <label htmlFor='return'>Return</label>
+              <input type='text' id='return' placeholder='Return Date' />
             </div>
           </div>
           <button type='submit' className={styles.submitButton}>
