@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "code": "AC",
+    "name": "Air Canada",
+    "logo": "https://cf-assets.flighthub.com/images/suppliersx2/ACx2.png"
+  },
+  {
+    "id": 2,
+    "code": "WS",
+    "name": "WestJet",
+    "logo": "https://cf-assets.flighthub.com/images/suppliersx2/WSx2.png"
+  },
+  {
+    "id": 3,
+    "code": "PD",
+    "name": "Porter Airlines",
+    "logo": "https://cf-assets.flighthub.com/images/suppliersx2/PDx2.png"
+  },
+  {
+    "id": 4,
+    "code": "TS",
+    "name": "Air Transat",
+    "logo": "https://cf-assets.flighthub.com/images/suppliersx2/TSx2.png"
+  }
+]
