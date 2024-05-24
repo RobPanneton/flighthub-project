@@ -1,21 +1,27 @@
 import { AppDataSource } from "../../../ormconfig";
+import { Between } from "typeorm";
+
 import { Flight } from "../../flight/model/flight.model";
+import { endOfDay, startOfDay } from "date-fns";
 
 export class TripService {
   private flightRepository = AppDataSource.getRepository(Flight);
 
-  async getTripSuggestions(departure: string, destination: string, date: string): Promise<any> {
+  async getTripSuggestions(departure: string, destination: string, date: Date): Promise<any> {
     try {
-      // Query for direct flights
+      const start = startOfDay(date);
+      const end = endOfDay(date);
+
+      // query for direct flights
       const directFlights = await this.flightRepository.find({
         where: {
           departure_airport: departure,
           arrival_airport: destination,
-          departure_time: date,
+          departure_time: Between(start, end),
         },
       });
 
-      // Construct trip suggestions
+      // construct trip suggestions
       const trips = directFlights.map((flight) => ({
         flight,
         totalPrice: flight.price,

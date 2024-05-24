@@ -15,13 +15,13 @@ export class Flight {
   departure_airport!: string;
 
   @Column()
-  departure_time!: string;
+  departure_time!: Date;
 
   @Column()
   arrival_airport!: string;
 
   @Column()
-  arrival_time!: string;
+  arrival_time!: Date;
 
   @Column("decimal")
   price!: number;
