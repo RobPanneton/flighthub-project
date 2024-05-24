@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity("flights")
 export class Flight {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id!: number;
 
   @Column()

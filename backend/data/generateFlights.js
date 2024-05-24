@@ -28,7 +28,6 @@ const generateFlights = (date) => {
         const price = prices[departure][arrival] + getRandomNum(-15, 15);
 
         const flight = {
-          id: uuidv4(),
           airline: airline,
           number: getRandomNum(100000, 999999),
           departure_airport: departure,
