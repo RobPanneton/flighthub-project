@@ -1,0 +1,92 @@
+{
+  "YYZ": {
+    "YVR": 4,
+    "YUL": 4,
+    "YYC": 4,
+    "YEG": 4,
+    "YOW": 4,
+    "YWG": 3,
+    "YHZ": 3,
+    "YQB": 2
+  },
+  "YVR": {
+    "YYZ": 4,
+    "YUL": 4,
+    "YYC": 4,
+    "YEG": 3,
+    "YOW": 2,
+    "YWG": 2,
+    "YHZ": 2,
+    "YQB": 1
+  },
+  "YUL": {
+    "YYZ": 4,
+    "YVR": 3,
+    "YYC": 2,
+    "YEG": 2,
+    "YOW": 3,
+    "YWG": 2,
+    "YHZ": 2,
+    "YQB": 2
+  },
+  "YYC": {
+    "YYZ": 4,
+    "YVR": 4,
+    "YUL": 2,
+    "YEG": 3,
+    "YOW": 2,
+    "YWG": 3,
+    "YHZ": 2,
+    "YQB": 1
+  },
+  "YEG": {
+    "YYZ": 4,
+    "YVR": 3,
+    "YUL": 2,
+    "YYC": 3,
+    "YOW": 2,
+    "YWG": 2,
+    "YHZ": 2,
+    "YQB": 1
+  },
+  "YOW": {
+    "YYZ": 4,
+    "YVR": 2,
+    "YUL": 3,
+    "YYC": 2,
+    "YEG": 2,
+    "YWG": 2,
+    "YHZ": 2,
+    "YQB": 1
+  },
+  "YWG": {
+    "YYZ": 3,
+    "YVR": 2,
+    "YUL": 2,
+    "YYC": 3,
+    "YEG": 2,
+    "YOW": 2,
+    "YHZ": 2,
+    "YQB": 1
+  },
+  "YHZ": {
+    "YYZ": 3,
+    "YVR": 2,
+    "YUL": 2,
+    "YYC": 2,
+    "YEG": 2,
+    "YOW": 2,
+    "YWG": 2,
+    "YQB": 1
+  },
+  "YQB": {
+    "YYZ": 2,
+    "YVR": 1,
+    "YUL": 2,
+    "YYC": 1,
+    "YEG": 1,
+    "YOW": 1,
+    "YWG": 1,
+    "YHZ": 1
+  }
+}
