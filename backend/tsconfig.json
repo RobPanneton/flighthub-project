@@ -9,7 +9,9 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node"
   },
   "include": ["src/**/*.ts", "src/index.ts", "src/ormconfig.ts", "node_modules/typeorm/cli.js"],
   "exclude": ["node_modules, build"]
