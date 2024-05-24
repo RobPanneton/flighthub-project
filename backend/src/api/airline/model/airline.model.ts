@@ -10,4 +10,7 @@ export class Airline {
 
   @Column()
   name!: string;
+
+  @Column()
+  logo!: string;
 }

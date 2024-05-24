@@ -36,9 +36,7 @@ export class AirlineController {
 
   async getAirlineById(req: Request, res: Response): Promise<Response> {
     try {
-      const airline = await this.airlineService.getAirlineById(
-        parseInt(req.params.id)
-      );
+      const airline = await this.airlineService.getAirlineById(parseInt(req.params.id));
       if (airline) {
         return res.status(200).json(airline);
       } else {
@@ -55,10 +53,7 @@ export class AirlineController {
 
   async updateAirline(req: Request, res: Response): Promise<Response> {
     try {
-      const updatedAirline = await this.airlineService.updateAirline(
-        parseInt(req.params.id),
-        req.body
-      );
+      const updatedAirline = await this.airlineService.updateAirline(parseInt(req.params.id), req.body);
       return res.status(200).json(updatedAirline);
     } catch (error: unknown) {
       if (error instanceof Error) {

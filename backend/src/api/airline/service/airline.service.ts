@@ -9,16 +9,14 @@ export class AirlineService {
     this.airlineRepository = AppDataSource.getRepository(Airline);
   }
 
-  async createAirline(
-    airlineData: Airline | Airline[]
-  ): Promise<Airline | Airline[]> {
+  async createAirline(airlineData: Airline | Airline[]): Promise<Airline | Airline[]> {
     // split logic to handle typescript linting over Airline | Airline[] type
     if (Array.isArray(airlineData)) {
-      // If airlineData is an array, process each airline in the array
+      // if airlineData is an array, process each airline in the array
       const airlines = this.airlineRepository.create(airlineData); // Create multiple new airline instances
       return await this.airlineRepository.save(airlines); // Save all new instances
     } else {
-      // If airlineData is a single airline object
+      // if airlineData is a single airline object
       const airline = this.airlineRepository.create(airlineData); // Create a new airline instance
       return await this.airlineRepository.save(airline); // Save the instance
     }
@@ -32,10 +30,7 @@ export class AirlineService {
     return await this.airlineRepository.findOneBy({ id });
   }
 
-  async updateAirline(
-    id: number,
-    airlineData: Partial<Airline>
-  ): Promise<Airline | null> {
+  async updateAirline(id: number, airlineData: Partial<Airline>): Promise<Airline | null> {
     await this.airlineRepository.update(id, airlineData);
     return this.getAirlineById(id);
   }
