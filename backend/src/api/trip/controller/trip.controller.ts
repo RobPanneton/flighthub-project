@@ -10,13 +10,23 @@ export class TripController {
 
   async getTripSuggestions(req: Request, res: Response): Promise<Response> {
     try {
-      const { departure, destination, date } = req.body;
-      const departureDateParsed = new Date(date);
-      if (!departure || !destination || !departureDateParsed) {
+      const { departure, destination, departure_date, return_date } = req.body;
+
+      if (!departure || !destination || !departure_date) {
         return res.status(400).json({ error: "Missing required query parameters" });
       }
 
-      const trips = await this.tripService.getTripSuggestions(departure, destination, departureDateParsed);
+      const departureDate = new Date(departure_date);
+      const returnDate = new Date(return_date);
+
+      let trips;
+
+      if (return_date) {
+        trips = await this.tripService.getRoundTripSuggestions(departure, destination, departureDate, returnDate);
+      } else {
+        trips = await this.tripService.getOneWayTripSuggestions(departure, destination, departureDate);
+      }
+
       return res.json(trips);
     } catch (error: unknown) {
       if (error instanceof Error) {
