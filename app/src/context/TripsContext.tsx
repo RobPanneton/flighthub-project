@@ -10,9 +10,18 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const fetchTrips = async (departure: string, destination: string, date: string) => {
     try {
-      const res = await fetch(
-        `${apiURL}/trips/suggestions?departure=${departure}&destination=${destination}&date=${date}`
-      );
+      const res = await fetch(`${apiURL}/trips/suggestions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          departure,
+          destination,
+          departure_date: date,
+        }),
+      });
+      console.log({ res });
       const data = await res.json();
       setTrips(data);
     } catch (e) {

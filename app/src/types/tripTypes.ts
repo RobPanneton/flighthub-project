@@ -3,6 +3,12 @@ export type TripsContextType = {
   fetchTrips: (departure: string, destination: string, date: string) => void;
 };
 
+// export type RoundTrip = {
+//   outgoingFlight: Flight;
+//   returnFlight: Flight;
+//   totalPrice: string;
+// };
+
 export type Trip = {
   totalPrice: string;
   flight: Flight;

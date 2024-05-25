@@ -57,7 +57,8 @@ export const SearchHero: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchTrips("YUL", "YVR", "07:35");
+    const date = new Date().toISOString();
+    fetchTrips("YUL", "YVR", date);
   };
 
   const handleTripTypeClick = (e: any) => {
