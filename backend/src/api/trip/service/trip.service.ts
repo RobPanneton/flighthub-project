@@ -68,7 +68,7 @@ export class TripService {
           trips.push({
             outgoingFlight,
             returnFlight,
-            totalPrice: outgoingFlight.price + returnFlight.price,
+            totalPrice: `${+outgoingFlight.price + +returnFlight.price}`,
           });
         });
       });
