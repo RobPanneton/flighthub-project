@@ -4,7 +4,8 @@ export type TripsContextType = {
   trips: Trip[] | RoundTrip[];
   fetchTrips: () => void;
   tripType: string;
-  form: any;
+  form: TripForm;
+  errors: Errors;
   setForm: React.Dispatch<SetStateAction<any>>;
   setTripType: React.Dispatch<SetStateAction<string>>;
 };

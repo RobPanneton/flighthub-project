@@ -53,7 +53,7 @@ export const TripOptions: React.FC = () => {
                 );
               } else {
                 return (
-                  <div className={styles.result}>
+                  <div key={`${index}-${getRandomNumForKey}`} className={styles.result}>
                     <div className={styles.priceAndCTA}>
                       <div className={styles.price}>
                         <h3>CAD {trip.totalPrice}</h3>

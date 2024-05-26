@@ -18,7 +18,7 @@ type TripType = {
 
 export const SearchHero: React.FC = () => {
   const { airports } = useAirportsContext();
-  const { fetchTrips, form, setForm, setTripType, tripType } = useTripsContext();
+  const { fetchTrips, setForm, setTripType, tripType } = useTripsContext();
 
   const tripTypes: TripType[] = [
     { text: "Round Trip", value: "round-trip" },

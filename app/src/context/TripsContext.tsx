@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Errors, Trip, TripForm, TripsContextType } from "../types/tripTypes";
 
 export const TripsContext = createContext<TripsContextType | null>(null);
@@ -12,7 +12,7 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return_date: null,
   });
   const [tripType, setTripType] = useState<string>("one-way");
-  const [error, setError] = useState<Errors>({
+  const [errors, setErrors] = useState<Errors>({
     destination: false,
     dates: false,
   });
@@ -21,13 +21,24 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const isReturnDateAfterDeparture = (departureDate: Date, returnDate: Date): boolean => returnDate <= departureDate;
 
+  const isDateOnOrBeforeToday = (departureDate: Date): boolean => {
+    const date = new Date(departureDate);
+    const today = new Date();
+
+    date.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return date <= today;
+  };
+
   const fetchTrips = async () => {
     // set error state for dates to false if there is no departure date and stop api call
-    if (!form.departure_date) return setError((pv) => ({ ...pv, dates: true }));
+    if (!form.departure_date || isDateOnOrBeforeToday(form?.departure_date))
+      return setErrors((pv) => ({ ...pv, dates: true }));
 
     // check if return date is on or earlier than departure date
     if (form?.return_date && isReturnDateAfterDeparture(form.departure_date, form.return_date))
-      return setError((pv) => ({ ...pv, dates: true }));
+      return setErrors((pv) => ({ ...pv, dates: true }));
 
     try {
       const res = await fetch(`${apiURL}/trips/suggestions`, {
@@ -51,7 +62,7 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   return (
-    <TripsContext.Provider value={{ trips, fetchTrips, form, tripType, setForm, setTripType }}>
+    <TripsContext.Provider value={{ trips, fetchTrips, form, errors, tripType, setForm, setTripType }}>
       {children}
     </TripsContext.Provider>
   );
