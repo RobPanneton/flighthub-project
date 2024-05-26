@@ -28,6 +28,13 @@ export const TripOptions: React.FC = () => {
 
   const getThreeLastChars = (s: string) => s.slice(-3);
 
+  const formatDateTime = (date: Date): { [key1: string]: string } => {
+    const time = date.toLocaleString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+    const formattedDate = date.toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric" });
+
+    return { time, formattedDate };
+  };
+
   return (
     <div className={styles.tripsWrapper}>
       {trips.length ? (
@@ -66,7 +73,9 @@ export const TripOptions: React.FC = () => {
                 );
               } else {
                 const airline: Airline | undefined = airlines?.find((a) => a.code === trip.flight.airline);
-                console.log({ trip });
+                const { time: depTime, formattedDate: depDate } = formatDateTime(new Date(trip.flight.departure_time));
+                const { time: arrTime, formattedDate: arrDate } = formatDateTime(new Date(trip.flight.arrival_time));
+
                 if (airline)
                   return (
                     <div key={`${index}-${getRandomNumForKey}`} className={styles.result}>
@@ -95,12 +104,14 @@ export const TripOptions: React.FC = () => {
                         </div>
                         <div className={styles.timeAndAirport}>
                           <div className={styles.infoRow}>
-                            <span>{trip.flight.departure_time}</span>
-                            <span>{trip.flight.departure_airport}</span>
+                            <span className={styles.time}>{depTime}</span>
+                            <span className={styles.date}>{depDate}</span>
+                            <span className={styles.airport}>{trip.flight.departure_airport}</span>
                           </div>
                           <div className={styles.infoRow}>
-                            <span>{trip.flight.arrival_time}</span>
-                            <span>{trip.flight.arrival_airport}</span>
+                            <span className={styles.time}>{arrTime}</span>
+                            <span className={styles.date}>{arrDate}</span>
+                            <span className={styles.airport}>{trip.flight.arrival_airport}</span>
                           </div>
                         </div>
                       </div>
