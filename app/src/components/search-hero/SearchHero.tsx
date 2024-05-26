@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Loader } from "../shared/loader/Loader";
 import { useAirportsContext } from "../../context/AirportsContext";
 import { useTripsContext } from "../../context/TripsContext";
@@ -18,54 +18,30 @@ type TripType = {
 
 export const SearchHero: React.FC = () => {
   const { airports } = useAirportsContext();
-  const { fetchTrips } = useTripsContext();
-
-  const [form, setForm] = useState<any>({
-    trip_type: "one-way",
-    departure_airport: "",
-    arrival_airport: "",
-    departure_time: "",
-  });
+  const { fetchTrips, setForm, setTripType, tripType } = useTripsContext();
 
   const tripTypes: TripType[] = [
     { text: "Round Trip", value: "round-trip" },
     { text: "One Way", value: "one-way" },
   ];
 
-  // const formLabels: FormLabel[] = [
-  //   {
-  //     labelText: "From",
-  //     labelValue: "departure",
-  //     placeholder: "Leaving from",
-  //   },
-  //   {
-  //     labelText: "To",
-  //     labelValue: "destination",
-  //     placeholder: "Going to",
-  //   },
-  //   {
-  //     labelText: "Depart",
-  //     labelValue: "departure-date",
-  //     placeholder: "Departure Date",
-  //   },
-  //   {
-  //     labelText: "Return",
-  //     labelValue: "return-date",
-  //     placeholder: "",
-  //   },
-  // ];
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchTrips("YUL", "YVR", "07:35");
+    fetchTrips();
   };
 
-  const handleTripTypeClick = (e: any) => {
-    if (e.target.value === form.trip_type) return;
-    setForm({
-      ...form,
-      trip_type: e.target.value,
-    });
+  const handleTripTypeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    if (target.value === tripType) return;
+    setTripType(target.value);
+  };
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setForm((pv: any) => ({
+      ...pv,
+      [id]: id.includes("date") ? new Date(value) : value,
+    }));
   };
 
   return (
@@ -75,7 +51,7 @@ export const SearchHero: React.FC = () => {
           <ul className={styles.tripOptions}>
             {tripTypes.map((type: TripType, i: number) => {
               return (
-                <li key={`${i}-${type.value}`} className={`${type.value === form.trip_type ? styles.selected : ""}`}>
+                <li key={`${i}-${type.value}`} className={`${type.value === tripType ? styles.selected : ""}`}>
                   <button type='button' value={type.value} onClick={handleTripTypeClick}>
                     {type.text}
                   </button>
@@ -86,20 +62,24 @@ export const SearchHero: React.FC = () => {
           <div className={styles.formSection}>
             <div className={styles.formRow}>
               <label htmlFor='from'>From</label>
-              <input type='text' id='from' placeholder='Leaving from' />
+              <input onChange={handleInput} type='text' id='departure' placeholder='Leaving from' />
             </div>
             <div className={styles.formRow}>
               <label htmlFor='to'>To</label>
-              <input type='text' id='to' placeholder='Going to' />
+              <input onChange={handleInput} type='text' id='destination' placeholder='Going to' />
             </div>
             <div className={styles.formRow}>
               <label htmlFor='depart'>Depart</label>
-              <input type='text' id='depart' placeholder='Departure Date' />
+              <input onChange={handleInput} type='date' id='departure_date' placeholder='Departure Date' />
             </div>
-            <div className={styles.formRow}>
-              <label htmlFor='return'>Return</label>
-              <input type='text' id='return' placeholder='Return Date' />
-            </div>
+            {tripType === "round-trip" ? (
+              <div className={styles.formRow}>
+                <label htmlFor='return'>Return</label>
+                <input onChange={handleInput} type='date' id='return_date' placeholder='Return Date' />
+              </div>
+            ) : (
+              <div className={styles.inputFiller}></div>
+            )}
           </div>
           <button type='submit' className={styles.submitButton}>
             Search Flights
