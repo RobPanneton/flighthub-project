@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 
 export type TripsContextType = {
-  trips: Trip[];
+  trips: Trip[] | RoundTrip[];
   fetchTrips: () => void;
   tripType: string;
   form: any;
@@ -9,11 +9,11 @@ export type TripsContextType = {
   setTripType: React.Dispatch<SetStateAction<string>>;
 };
 
-// export type RoundTrip = {
-//   outgoingFlight: Flight;
-//   returnFlight: Flight;
-//   totalPrice: string;
-// };
+export type RoundTrip = {
+  outgoingFlight: Flight;
+  returnFlight: Flight;
+  totalPrice: string;
+};
 
 export type TripForm = {
   departure: string;
@@ -36,4 +36,9 @@ export type Flight = {
   arrival_airport: string;
   arrival_time: string;
   price: number;
+};
+
+export type Errors = {
+  destination: boolean;
+  dates: boolean;
 };

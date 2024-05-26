@@ -25,37 +25,15 @@ export const SearchHero: React.FC = () => {
     { text: "One Way", value: "one-way" },
   ];
 
-  // const formLabels: FormLabel[] = [
-  //   {
-  //     labelText: "From",
-  //     labelValue: "departure",
-  //     placeholder: "Leaving from",
-  //   },
-  //   {
-  //     labelText: "To",
-  //     labelValue: "destination",
-  //     placeholder: "Going to",
-  //   },
-  //   {
-  //     labelText: "Depart",
-  //     labelValue: "departure-date",
-  //     placeholder: "Departure Date",
-  //   },
-  //   {
-  //     labelText: "Return",
-  //     labelValue: "return-date",
-  //     placeholder: "",
-  //   },
-  // ];
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     fetchTrips();
   };
 
-  const handleTripTypeClick = (e: any) => {
-    if (e.target.value === tripType) return;
-    setTripType(e.target.value);
+  const handleTripTypeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    if (target.value === tripType) return;
+    setTripType(target.value);
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
