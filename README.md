@@ -30,7 +30,7 @@
    npm install
    ```
 
-### Setup the DB - You will need to have postgresql installed on your machine
+### Setup the DB - You will need to have postgres installed on your machine
 
 1. **Setup the DB**:
 
@@ -153,6 +153,10 @@ City: Quebec City
 
 The flight data is generated for the next 14 days from the current date when seeding.
 Ensure to enter a valid airport code, city code, or city name from the list above when querying for flights.
+
+## Design
+
+The design used is mobile based and drew inspiration from the Flighthub desktop website in mobile viewport width.
 
 ## Project Structure and Architecture
 
