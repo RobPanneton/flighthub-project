@@ -18,9 +18,6 @@ export const TripOptions: React.FC = () => {
 
   const numOfTrips = trips.length;
 
-  // cart logic would be called here
-  const handleSelect = () => 0;
-
   const isRoundTrip = (trip: Trip | RoundTrip): trip is RoundTrip => (trip as RoundTrip).returnFlight !== undefined;
 
   return (

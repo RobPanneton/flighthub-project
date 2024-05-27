@@ -41,9 +41,9 @@ export class FlightController {
     try {
       const flightData = req.body;
 
-      // Check if flightData is an array
+      // check if flightData is an array
       if (Array.isArray(flightData)) {
-        // Validate each flight in the array
+        // validate each flight in the array
         for (const flight of flightData) {
           if (
             !flight.airline ||
@@ -60,7 +60,7 @@ export class FlightController {
         const newFlights = await this.flightService.createMany(flightData);
         return res.status(201).json(newFlights);
       } else {
-        // Validate single flight object
+        // validate single flight object
         if (
           !flightData.airline ||
           !flightData.number ||

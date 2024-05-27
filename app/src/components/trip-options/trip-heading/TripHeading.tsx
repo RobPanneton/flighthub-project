@@ -5,6 +5,7 @@ import styles from "./TripHeading.module.scss";
 export const TripHeading: React.FC<{
   price: string;
 }> = ({ price }) => {
+  // cart logic would be called here
   const handleSelect = () => 0;
 
   return (
