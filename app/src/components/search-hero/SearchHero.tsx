@@ -38,7 +38,11 @@ export const SearchHero: React.FC = () => {
     }));
   };
 
-  const formatDate = (date: Date) => date.toLocaleDateString("en-CA");
+  const formatDate = (date: Date, daysToAdd: number) => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + daysToAdd);
+    return newDate.toLocaleDateString("en-CA");
+  };
 
   return (
     <div className={styles.searchHeroWrapper}>
@@ -71,7 +75,8 @@ export const SearchHero: React.FC = () => {
                 <input
                   onChange={handleInput}
                   type='date'
-                  min={formatDate(new Date())}
+                  min={formatDate(new Date(), 1)}
+                  max={formatDate(new Date(), 13)}
                   id='departure_date'
                   placeholder='Departure Date'
                 />
@@ -79,7 +84,14 @@ export const SearchHero: React.FC = () => {
               {tripType === "round-trip" ? (
                 <div className={styles.formRow}>
                   <label htmlFor='return'>Return</label>
-                  <input onChange={handleInput} type='date' id='return_date' placeholder='Return Date' />
+                  <input
+                    onChange={handleInput}
+                    min={formatDate(new Date(), 2)}
+                    max={formatDate(new Date(), 14)}
+                    type='date'
+                    id='return_date'
+                    placeholder='Return Date'
+                  />
                 </div>
               ) : (
                 <div className={styles.inputFiller}></div>
