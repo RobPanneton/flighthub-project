@@ -2,12 +2,14 @@ import React from "react";
 
 import { useTripsContext } from "../../context/TripsContext";
 import { useAirlinesContext } from "../../context/AirlinesContext";
+import { Airline } from "../../types/airlineTypes";
+import { TripItem } from "./trip-item/TripItem";
+import { TripHeading } from "./trip-heading/TripHeading";
+
 import { RoundTrip, Trip } from "../../types/tripTypes";
 import { getRandomNumForKey } from "../../utils/varUtils";
 
 import styles from "./TripOptions.module.scss";
-import { Airline } from "../../types/airlineTypes";
-import { TripItem } from "./trip-item/TripItem";
 
 export const TripOptions: React.FC = () => {
   const { trips } = useTripsContext();
@@ -36,15 +38,7 @@ export const TripOptions: React.FC = () => {
               if (!airline) return null;
               return (
                 <div key={`${index}-${getRandomNumForKey()}`} className={styles.result}>
-                  <div className={styles.priceAndCTA}>
-                    <div className={styles.price}>
-                      <h3>CAD {trip.totalPrice}</h3>
-                      <span>Final total price (taxes included)</span>
-                    </div>
-                    <button type='button' onClick={handleSelect}>
-                      <span>SELECT</span> <span>{">"}</span>
-                    </button>
-                  </div>
+                  <TripHeading price={trip.totalPrice} />
                   <TripItem flight={trip.outgoingFlight} airline={airline} type='outgoing' />
                   {isRoundTrip(trip) && returnAirline !== undefined && (
                     <TripItem flight={trip.outgoingFlight} airline={returnAirline} type='return' />
