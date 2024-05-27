@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { Errors, Trip, TripForm, TripsContextType } from "../types/tripTypes";
+import { useAirportsContext } from "./AirportsContext";
 
 export const TripsContext = createContext<TripsContextType | null>(null);
 
@@ -11,12 +12,14 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     departure_date: null,
     return_date: null,
   });
-  const [tripType, setTripType] = useState<string>("one-way");
+  const [tripType, setTripType] = useState<string>("round-trip");
   const [errors, setErrors] = useState<Errors>({
     destination: false,
     dates: false,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { airports } = useAirportsContext();
 
   const apiURL = process.env.REACT_APP_FLIGHT_API_URL;
 
@@ -26,21 +29,39 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const date = new Date(departureDate);
     const today = new Date();
 
+    // support same day by using current time and comparing flights against it
     date.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
 
-    return date <= today;
+    return date < today;
+  };
+
+  const handleError = (key: string) => {
+    setErrors((pv) => ({ ...pv, [key]: true }));
+    setIsLoading(false);
+  };
+
+  const checkDestination = (input: string) => {
+    const normalizedInput = input.trim().toLowerCase();
+    return airports?.find(
+      (airport) =>
+        airport.code.toLowerCase() === normalizedInput ||
+        airport.city_code.toLowerCase() === normalizedInput ||
+        airport.city.toLowerCase() === normalizedInput
+    )?.code;
   };
 
   const fetchTrips = async () => {
     setIsLoading(true);
     // set error state for dates to false if there is no departure date and stop api call
-    if (!form.departure_date || isDateOnOrBeforeToday(form?.departure_date))
-      return setErrors((pv) => ({ ...pv, dates: true }));
+    if (!form.departure_date || isDateOnOrBeforeToday(form?.departure_date)) return handleError("dates");
 
     // check if return date is on or earlier than departure date
     if (form?.return_date && isReturnDateAfterDeparture(form.departure_date, form.return_date))
-      return setErrors((pv) => ({ ...pv, dates: true }));
+      return handleError("dates");
+
+    const matchedDeparture = checkDestination(form.departure);
+    const matchedDestination = checkDestination(form.destination);
 
     try {
       const res = await fetch(`${apiURL}/trips/suggestions`, {
@@ -49,15 +70,19 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          departure: form.departure,
-          destination: form.destination,
+          departure: matchedDeparture,
+          destination: matchedDestination,
           departure_date: form.departure_date?.toISOString(),
           return_date: tripType === "round-trip" ? form.return_date?.toISOString() : null,
         }),
       });
       const data = await res.json();
-      setTrips(data);
-      setIsLoading(false);
+
+      // fake timeout to emulate loading time
+      setTimeout(() => {
+        setIsLoading(false);
+        setTrips(data);
+      }, 1000);
     } catch (e) {
       console.error("Error fetching trips:", e);
       setIsLoading(false);
