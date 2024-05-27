@@ -10,9 +10,10 @@ import { RoundTrip, Trip } from "../../types/tripTypes";
 import { getRandomNumForKey } from "../../utils/varUtils";
 
 import styles from "./TripOptions.module.scss";
+import { Loader } from "../shared/loader/Loader";
 
 export const TripOptions: React.FC = () => {
-  const { trips } = useTripsContext();
+  const { trips, isLoading } = useTripsContext();
   const { airlines } = useAirlinesContext();
 
   const numOfTrips = trips.length;
@@ -49,9 +50,7 @@ export const TripOptions: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className={styles.ctaWrapper}>
-          <h1>Search for a flight!</h1>
-        </div>
+        <div className={styles.ctaWrapper}>{isLoading ? <Loader /> : <h1>Search for a flight!</h1>}</div>
       )}
     </div>
   );

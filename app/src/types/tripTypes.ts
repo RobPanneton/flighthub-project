@@ -8,6 +8,7 @@ export type TripsContextType = {
   errors: Errors;
   setForm: React.Dispatch<SetStateAction<any>>;
   setTripType: React.Dispatch<SetStateAction<string>>;
+  isLoading: boolean;
 };
 
 export type Trip = {
