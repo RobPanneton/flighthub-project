@@ -2,14 +2,13 @@ import React from "react";
 
 import styles from "./TripItem.module.scss";
 import { Airline } from "../../../types/airlineTypes";
-import { Trip } from "../../../types/tripTypes";
+import { Flight } from "../../../types/tripTypes";
 
 export const TripItem: React.FC<{
+  flight: Flight;
   airline: Airline;
-  trip: Trip;
-}> = ({ airline, trip }) => {
-  const handleSelect = () => 0;
-
+  type: "outgoing" | "return";
+}> = ({ flight, airline, type }) => {
   const getThreeLastChars = (s: string) => s.slice(-3);
 
   const getDuration = (departureTime: Date, arrivalTime: Date) => {
@@ -26,45 +25,34 @@ export const TripItem: React.FC<{
     return { time, formattedDate };
   };
 
-  const { time: depTime, formattedDate: depDate } = formatDateTime(new Date(trip.outgoingFlight.departure_time));
-  const { time: arrTime, formattedDate: arrDate } = formatDateTime(new Date(trip.outgoingFlight.arrival_time));
+  const { time: depTime, formattedDate: depDate } = formatDateTime(new Date(flight.departure_time));
+  const { time: arrTime, formattedDate: arrDate } = formatDateTime(new Date(flight.arrival_time));
 
   return (
-    <div className={styles.result}>
-      <div className={styles.priceAndCTA}>
-        <div className={styles.price}>
-          <h3>CAD {trip.totalPrice}</h3>
-          <span>Final total price (taxes included)</span>
+    <div className={`${styles.info} ${type === "return" ? styles.borderTop : ""}`}>
+      <div className={styles.flightDetails}>
+        <div className={styles.logoContainer}>
+          <img src={airline.logo} alt='airline-logo' />
         </div>
-        <button type='button' onClick={handleSelect}>
-          <span>SELECT</span> <span>{">"}</span>
-        </button>
+        <div className={styles.description}>
+          <span>{airline.name}</span>
+          <span className={styles.flightNum}>Flight {getThreeLastChars(flight.number)}</span>
+          <span className={styles.flightClass}>Economy</span>
+          <span className={styles.flightDuration}>
+            {getDuration(new Date(flight.departure_time), new Date(flight.arrival_time))}
+          </span>
+        </div>
       </div>
-      <div className={styles.info}>
-        <div className={styles.flightDetails}>
-          <div className={styles.logoContainer}>
-            <img src={airline.logo} alt='airline-logo' />
-          </div>
-          <div className={styles.description}>
-            <span>{airline.name}</span>
-            <span className={styles.flightNum}>Flight {getThreeLastChars(trip.outgoingFlight.number)}</span>
-            <span className={styles.flightClass}>Economy</span>
-            <span className={styles.flightDuration}>
-              {getDuration(new Date(trip.outgoingFlight.departure_time), new Date(trip.outgoingFlight.arrival_time))}
-            </span>
-          </div>
+      <div className={styles.timeAndAirport}>
+        <div className={styles.infoRow}>
+          <span className={styles.time}>{depTime}</span>
+          <span className={styles.date}>{depDate}</span>
+          <span className={styles.airport}>{flight.departure_airport}</span>
         </div>
-        <div className={styles.timeAndAirport}>
-          <div className={styles.infoRow}>
-            <span className={styles.time}>{depTime}</span>
-            <span className={styles.date}>{depDate}</span>
-            <span className={styles.airport}>{trip.outgoingFlight.departure_airport}</span>
-          </div>
-          <div className={styles.infoRow}>
-            <span className={styles.time}>{arrTime}</span>
-            <span className={styles.date}>{arrDate}</span>
-            <span className={styles.airport}>{trip.outgoingFlight.arrival_airport}</span>
-          </div>
+        <div className={styles.infoRow}>
+          <span className={styles.time}>{arrTime}</span>
+          <span className={styles.date}>{arrDate}</span>
+          <span className={styles.airport}>{flight.arrival_airport}</span>
         </div>
       </div>
     </div>

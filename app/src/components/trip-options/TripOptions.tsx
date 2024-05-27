@@ -29,38 +29,28 @@ export const TripOptions: React.FC = () => {
           </h3>
           <div className={styles.resultsContainer}>
             {trips.map((trip: Trip | RoundTrip, index) => {
-              if (isRoundTrip(trip)) {
-                return (
-                  <div key={`${index}-${getRandomNumForKey}`} className={styles.result}>
-                    <div className={styles.priceAndCTA}>
-                      <div className={styles.price}>
-                        <h3>CAD {trip.totalPrice}</h3>
-                        <span>Final total price (taxes included)</span>
-                      </div>
-                      <button type='button' onClick={handleSelect}>
-                        <span>SELECT</span> <span>{">"}</span>
-                      </button>
+              const airline: Airline | undefined = airlines?.find((a) => a.code === trip.outgoingFlight.airline);
+              let returnAirline: Airline | undefined;
+              if (isRoundTrip(trip)) returnAirline = airlines?.find((a) => a.code === trip.returnFlight.airline);
+
+              if (!airline) return null;
+              return (
+                <div key={`${index}-${getRandomNumForKey()}`} className={styles.result}>
+                  <div className={styles.priceAndCTA}>
+                    <div className={styles.price}>
+                      <h3>CAD {trip.totalPrice}</h3>
+                      <span>Final total price (taxes included)</span>
                     </div>
-                    <div className={styles.info}>
-                      <div className={styles.airline}>{trip.outgoingFlight.airline}</div>
-                      <div className={styles.timeAndAirport}>
-                        <div className={styles.infoRow}>
-                          <span>{trip.outgoingFlight.departure_time}</span>
-                          <span>{trip.outgoingFlight.departure_airport}</span>
-                        </div>
-                        <div className={styles.infoRow}>
-                          <span>{trip.outgoingFlight.arrival_time}</span>
-                          <span>{trip.outgoingFlight.arrival_airport}</span>
-                        </div>
-                      </div>
-                    </div>
+                    <button type='button' onClick={handleSelect}>
+                      <span>SELECT</span> <span>{">"}</span>
+                    </button>
                   </div>
-                );
-              } else {
-                const airline: Airline | undefined = airlines?.find((a) => a.code === trip.outgoingFlight.airline);
-                if (!airline) return null;
-                return <TripItem key={`${index}-${getRandomNumForKey}`} airline={airline} trip={trip} />;
-              }
+                  <TripItem flight={trip.outgoingFlight} airline={airline} type='outgoing' />
+                  {isRoundTrip(trip) && returnAirline !== undefined && (
+                    <TripItem flight={trip.outgoingFlight} airline={returnAirline} type='return' />
+                  )}
+                </div>
+              );
             })}
           </div>
         </div>

@@ -50,7 +50,7 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           departure: form.departure,
           destination: form.destination,
           departure_date: form.departure_date?.toISOString(),
-          arrival_date: tripType === "round-trip" ? form.return_date : null,
+          return_date: tripType === "round-trip" ? form.return_date?.toISOString() : null,
         }),
       });
       const data = await res.json();
