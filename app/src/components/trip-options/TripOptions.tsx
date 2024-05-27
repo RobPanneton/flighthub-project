@@ -22,7 +22,11 @@ export const TripOptions: React.FC = () => {
 
   return (
     <div className={styles.tripsWrapper}>
-      {trips.length ? (
+      {isLoading ? (
+        <div className={styles.ctaWrapper}>
+          <Loader />
+        </div>
+      ) : trips.length ? (
         <div className={styles.resultsWrapper}>
           <h3 className={styles.resultsText}>
             {numOfTrips} result{numOfTrips > 1 ? "s" : ""} found
@@ -47,7 +51,9 @@ export const TripOptions: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className={styles.ctaWrapper}>{isLoading ? <Loader /> : <h1>Search for a flight!</h1>}</div>
+        <div className={styles.ctaWrapper}>
+          <h1>Search for a flight!</h1>
+        </div>
       )}
     </div>
   );

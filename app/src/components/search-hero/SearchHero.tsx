@@ -38,6 +38,8 @@ export const SearchHero: React.FC = () => {
     }));
   };
 
+  const formatDate = (date: Date) => date.toLocaleDateString("en-CA");
+
   return (
     <div className={styles.searchHeroWrapper}>
       {airports?.length ? (
@@ -66,7 +68,13 @@ export const SearchHero: React.FC = () => {
               </div>
               <div className={styles.formRow}>
                 <label htmlFor='depart'>Depart</label>
-                <input onChange={handleInput} type='date' id='departure_date' placeholder='Departure Date' />
+                <input
+                  onChange={handleInput}
+                  type='date'
+                  min={formatDate(new Date())}
+                  id='departure_date'
+                  placeholder='Departure Date'
+                />
               </div>
               {tripType === "round-trip" ? (
                 <div className={styles.formRow}>
