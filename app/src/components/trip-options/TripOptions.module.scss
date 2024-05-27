@@ -22,79 +22,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     gap: 25px;
-
-    .result {
-      width: 100%;
-      border: 1px solid #e5e5e5;
-      border-bottom: 3px solid #e5e5e5;
-
-      .priceAndCTA {
-        padding: 8px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        background: $color-label-bg-gray;
-        border-bottom: 1px solid #e5e5e5;
-
-        .price {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-
-          h3 {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -1.8px;
-
-            color: $color-text-price;
-          }
-          span {
-            font-size: 10px;
-            color: $color-label-text-gray;
-          }
-        }
-
-        button {
-          display: block;
-          width: 160px;
-          padding: 12px 25px 12px 15px;
-
-          background-color: #e85e12;
-          border: 0;
-          border-radius: 2px;
-
-          font-size: 16px;
-          line-height: 1;
-          font-weight: 700;
-          color: #fff;
-
-          position: relative;
-
-          span:last-child {
-            position: absolute;
-            right: 12px;
-            font-weight: 700;
-          }
-        }
-      }
-
-      .info {
-        padding: 10px 5px;
-
-        display: flex;
-        justify-content: space-between;
-
-        .timeAndAirport {
-          padding-right: 20px;
-          .infoRow {
-            display: flex;
-            gap: 12px;
-          }
-        }
-      }
-    }
   }
 }
 
@@ -110,4 +39,10 @@
     font-size: 32px;
     font-weight: 700;
   }
+}
+
+.result {
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  border-bottom: 3px solid #e5e5e5;
 }

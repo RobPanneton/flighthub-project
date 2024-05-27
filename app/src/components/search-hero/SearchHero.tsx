@@ -10,12 +10,6 @@ type TripType = {
   value: string;
 };
 
-// type FormLabel = {
-//   labelText: string;
-//   labelValue: string;
-//   placeholder: string;
-// };
-
 export const SearchHero: React.FC = () => {
   const { airports } = useAirportsContext();
   const { fetchTrips, setForm, setTripType, tripType } = useTripsContext();
@@ -47,44 +41,47 @@ export const SearchHero: React.FC = () => {
   return (
     <div className={styles.searchHeroWrapper}>
       {airports?.length ? (
-        <form onSubmit={handleSubmit} className={styles.formContainer}>
-          <ul className={styles.tripOptions}>
-            {tripTypes.map((type: TripType, i: number) => {
-              return (
-                <li key={`${i}-${type.value}`} className={`${type.value === tripType ? styles.selected : ""}`}>
-                  <button type='button' value={type.value} onClick={handleTripTypeClick}>
-                    {type.text}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          <div className={styles.formSection}>
-            <div className={styles.formRow}>
-              <label htmlFor='from'>From</label>
-              <input onChange={handleInput} type='text' id='departure' placeholder='Leaving from' />
-            </div>
-            <div className={styles.formRow}>
-              <label htmlFor='to'>To</label>
-              <input onChange={handleInput} type='text' id='destination' placeholder='Going to' />
-            </div>
-            <div className={styles.formRow}>
-              <label htmlFor='depart'>Depart</label>
-              <input onChange={handleInput} type='date' id='departure_date' placeholder='Departure Date' />
-            </div>
-            {tripType === "round-trip" ? (
+        <div className={styles.searchContainer}>
+          <div className={styles.fakeTab}>FLIGHTS</div>
+          <form onSubmit={handleSubmit} className={styles.formContainer}>
+            <ul className={styles.tripOptions}>
+              {tripTypes.map((type: TripType, i: number) => {
+                return (
+                  <li key={`${i}-${type.value}`} className={`${type.value === tripType ? styles.selected : ""}`}>
+                    <button type='button' value={type.value} onClick={handleTripTypeClick}>
+                      {type.text}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className={styles.formSection}>
               <div className={styles.formRow}>
-                <label htmlFor='return'>Return</label>
-                <input onChange={handleInput} type='date' id='return_date' placeholder='Return Date' />
+                <label htmlFor='from'>From</label>
+                <input onChange={handleInput} type='text' id='departure' placeholder='Leaving from' />
               </div>
-            ) : (
-              <div className={styles.inputFiller}></div>
-            )}
-          </div>
-          <button type='submit' className={styles.submitButton}>
-            Search Flights
-          </button>
-        </form>
+              <div className={styles.formRow}>
+                <label htmlFor='to'>To</label>
+                <input onChange={handleInput} type='text' id='destination' placeholder='Going to' />
+              </div>
+              <div className={styles.formRow}>
+                <label htmlFor='depart'>Depart</label>
+                <input onChange={handleInput} type='date' id='departure_date' placeholder='Departure Date' />
+              </div>
+              {tripType === "round-trip" ? (
+                <div className={styles.formRow}>
+                  <label htmlFor='return'>Return</label>
+                  <input onChange={handleInput} type='date' id='return_date' placeholder='Return Date' />
+                </div>
+              ) : (
+                <div className={styles.inputFiller}></div>
+              )}
+            </div>
+            <button type='submit' className={styles.submitButton}>
+              Search Flights
+            </button>
+          </form>
+        </div>
       ) : (
         <Loader />
       )}

@@ -16,6 +16,7 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     destination: false,
     dates: false,
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const apiURL = process.env.REACT_APP_FLIGHT_API_URL;
 
@@ -32,6 +33,7 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const fetchTrips = async () => {
+    setIsLoading(true);
     // set error state for dates to false if there is no departure date and stop api call
     if (!form.departure_date || isDateOnOrBeforeToday(form?.departure_date))
       return setErrors((pv) => ({ ...pv, dates: true }));
@@ -50,19 +52,21 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           departure: form.departure,
           destination: form.destination,
           departure_date: form.departure_date?.toISOString(),
-          arrival_date: tripType === "round-trip" ? form.return_date : null,
+          return_date: tripType === "round-trip" ? form.return_date?.toISOString() : null,
         }),
       });
       const data = await res.json();
       setTrips(data);
+      setIsLoading(false);
     } catch (e) {
       console.error("Error fetching trips:", e);
+      setIsLoading(false);
     }
     return;
   };
 
   return (
-    <TripsContext.Provider value={{ trips, fetchTrips, form, errors, tripType, setForm, setTripType }}>
+    <TripsContext.Provider value={{ trips, fetchTrips, form, errors, tripType, setForm, setTripType, isLoading }}>
       {children}
     </TripsContext.Provider>
   );

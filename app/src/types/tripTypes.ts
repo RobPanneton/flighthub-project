@@ -8,12 +8,16 @@ export type TripsContextType = {
   errors: Errors;
   setForm: React.Dispatch<SetStateAction<any>>;
   setTripType: React.Dispatch<SetStateAction<string>>;
+  isLoading: boolean;
 };
 
-export type RoundTrip = {
-  outgoingFlight: Flight;
-  returnFlight: Flight;
+export type Trip = {
   totalPrice: string;
+  outgoingFlight: Flight;
+};
+
+export type RoundTrip = Trip & {
+  returnFlight: Flight;
 };
 
 export type TripForm = {
@@ -21,11 +25,6 @@ export type TripForm = {
   destination: string;
   departure_date: Date | null;
   return_date: Date | null;
-};
-
-export type Trip = {
-  totalPrice: string;
-  flight: Flight;
 };
 
 export type Flight = {

@@ -15,11 +15,27 @@
   font-family: Arial;
 }
 
+.searchContainer {
+  width: 100%;
+}
+
+.fakeTab {
+  width: fit-content;
+  border-radius: 6px 6px 0 0;
+  padding: 14px 26px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  background-color: white;
+  color: $color-label-text-bold-gray2;
+}
+
 .formContainer {
   width: 100%;
 
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 0 6px 6px 6px;
 
   background-color: white;
 
