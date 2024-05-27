@@ -98,6 +98,62 @@
    npm start
    ```
 
+## Instructions
+
+### Querying Airports
+
+You can query for flights using the following airport codes, city codes, or city names:
+
+Toronto Pearson International Airport\
+Code: YYZ\
+City Code: YTO\
+City: Toronto
+
+Vancouver International Airport\
+Code: YVR\
+City Code: YVR\
+City: Vancouver
+
+Montréal–Trudeau International Airport\
+Code: YUL\
+City Code: YMQ\
+City: Montreal
+
+Calgary International Airport\
+Code: YYC\
+City Code: YYC\
+City: Calgary
+
+Edmonton International Airport\
+Code: YEG\
+City Code: YEA\
+City: Edmonton
+
+Ottawa Macdonald–Cartier International Airport\
+Code: YOW\
+City Code: YOW\
+City: Ottawa
+
+Winnipeg James Armstrong Richardson International Airport\
+Code: YWG\
+City Code: YWG\
+City: Winnipeg
+
+Halifax Stanfield International Airport\
+Code: YHZ\
+City Code: YHZ\
+City: Halifax
+
+Québec City Jean Lesage International Airport\
+Code: YQB\
+City Code: YQB\
+City: Quebec City
+
+### Data Generation
+
+The flight data is generated for the next 14 days from the current date when seeding.
+Ensure to enter a valid airport code, city code, or city name from the list above when querying for flights.
+
 ## Project Structure and Architecture
 
 The project is designed using a component-based architecture, promoting reusability and maintainability. The backend is built using Node.js and PostgreSQL, with data manipulation handled via TypeORM.
@@ -135,7 +191,6 @@ The project is designed using a component-based architecture, promoting reusabil
 ### Future Improvements
 
 - Typeahead: Add typeahead functionality to improve user experience during search.
-- Search and Replace: Implement search and replace functionality for writing out city names.
 - Error State for Inputs: Enhance error handling for user inputs to provide better feedback and prevent invalid data submission.
 - Unit Tests: Increase the coverage of unit tests to ensure the reliability of individual components.
 - Integration Tests: Add integration tests to verify the interactions between different components and the overall system behavior.
