@@ -1,0 +1,103 @@
+{
+  "airports": [
+    {
+      "code": "YYZ",
+      "city_code": "YTO",
+      "name": "Toronto Pearson International Airport",
+      "city": "Toronto",
+      "country_code": "CA",
+      "region_code": "ON",
+      "latitude": 43.6777,
+      "longitude": -79.6248,
+      "timezone": "America/Toronto"
+    },
+    {
+      "code": "YVR",
+      "city_code": "YVR",
+      "name": "Vancouver International Airport",
+      "city": "Vancouver",
+      "country_code": "CA",
+      "region_code": "BC",
+      "latitude": 49.1947,
+      "longitude": -123.1792,
+      "timezone": "America/Vancouver"
+    },
+    {
+      "code": "YUL",
+      "city_code": "YMQ",
+      "name": "Montréal–Trudeau International Airport",
+      "city": "Montreal",
+      "country_code": "CA",
+      "region_code": "QC",
+      "latitude": 45.4577,
+      "longitude": -73.7499,
+      "timezone": "America/Montreal"
+    },
+    {
+      "code": "YYC",
+      "city_code": "YYC",
+      "name": "Calgary International Airport",
+      "city": "Calgary",
+      "country_code": "CA",
+      "region_code": "AB",
+      "latitude": 51.1315,
+      "longitude": -114.0106,
+      "timezone": "America/Edmonton"
+    },
+    {
+      "code": "YEG",
+      "city_code": "YEA",
+      "name": "Edmonton International Airport",
+      "city": "Edmonton",
+      "country_code": "CA",
+      "region_code": "AB",
+      "latitude": 53.3097,
+      "longitude": -113.5799,
+      "timezone": "America/Edmonton"
+    },
+    {
+      "code": "YOW",
+      "city_code": "YOW",
+      "name": "Ottawa Macdonald–Cartier International Airport",
+      "city": "Ottawa",
+      "country_code": "CA",
+      "region_code": "ON",
+      "latitude": 45.3225,
+      "longitude": -75.6692,
+      "timezone": "America/Toronto"
+    },
+    {
+      "code": "YWG",
+      "city_code": "YWG",
+      "name": "Winnipeg James Armstrong Richardson International Airport",
+      "city": "Winnipeg",
+      "country_code": "CA",
+      "region_code": "MB",
+      "latitude": 49.91,
+      "longitude": -97.2399,
+      "timezone": "America/Winnipeg"
+    },
+    {
+      "code": "YHZ",
+      "city_code": "YHZ",
+      "name": "Halifax Stanfield International Airport",
+      "city": "Halifax",
+      "country_code": "CA",
+      "region_code": "NS",
+      "latitude": 44.8808,
+      "longitude": -63.5086,
+      "timezone": "America/Halifax"
+    },
+    {
+      "code": "YQB",
+      "city_code": "YQB",
+      "name": "Québec City Jean Lesage International Airport",
+      "city": "Quebec City",
+      "country_code": "CA",
+      "region_code": "QC",
+      "latitude": 46.7911,
+      "longitude": -71.3933,
+      "timezone": "America/Montreal"
+    }
+  ]
+}
