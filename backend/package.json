@@ -18,7 +18,8 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration-generate": "node migration-generate-script.js",
     "migration-migrate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/ormconfig.ts",
-    "migration-revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/ormconfig.ts"
+    "migration-revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/ormconfig.ts",
+    "seed": "node seed.js"
   },
   "keywords": [],
   "author": "",

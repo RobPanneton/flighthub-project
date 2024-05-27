@@ -44,7 +44,7 @@ const generateFlights = (date) => {
   return flights;
 };
 
-// source variable to support docker db init
+// source variable to support seeding
 const main = (numDays, source) => {
   const currentDate = new Date();
 
@@ -56,7 +56,7 @@ const main = (numDays, source) => {
     flights = flights.concat(generateFlights(date));
   }
 
-  if (source === "docker") return flights;
+  if (source === "seed") return flights;
 
   const fileName = `flights_${currentDate.toISOString().replace(/[:.]/g, "-")}.json`;
   const filePath = path.join(__dirname, "generated", fileName);
@@ -71,6 +71,6 @@ const main = (numDays, source) => {
 
 main(14, "manual");
 
-const initDataForDocker = () => main(14, "docker");
+const initDataForSeed = () => main(14, "seed");
 
-module.exports = { initDataForDocker };
+module.exports = { initDataForSeed };
