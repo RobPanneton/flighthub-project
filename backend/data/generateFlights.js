@@ -44,7 +44,8 @@ const generateFlights = (date) => {
   return flights;
 };
 
-const main = (numDays) => {
+// source variable to support docker db init
+const main = (numDays, source) => {
   const currentDate = new Date();
 
   let flights = [];
@@ -54,6 +55,8 @@ const main = (numDays) => {
     date.setDate(currentDate.getDate() + i);
     flights = flights.concat(generateFlights(date));
   }
+
+  if (source === "docker") return flights;
 
   const fileName = `flights_${currentDate.toISOString().replace(/[:.]/g, "-")}.json`;
   const filePath = path.join(__dirname, "generated", fileName);
@@ -66,4 +69,8 @@ const main = (numDays) => {
   console.log(`Flights data generated and saved to ${filePath}`);
 };
 
-main(14);
+main(14, "manual");
+
+const initDataForDocker = () => main(14, "docker");
+
+module.exports = { initDataForDocker };
