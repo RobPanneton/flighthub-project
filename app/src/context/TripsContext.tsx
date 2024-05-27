@@ -11,7 +11,7 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     departure_date: null,
     return_date: null,
   });
-  const [tripType, setTripType] = useState<string>("one-way");
+  const [tripType, setTripType] = useState<string>("round-trip");
   const [errors, setErrors] = useState<Errors>({
     destination: false,
     dates: false,
@@ -26,21 +26,26 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const date = new Date(departureDate);
     const today = new Date();
 
+    // support same day by using current time and comparing flights against it
     date.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
 
-    return date <= today;
+    return date < today;
+  };
+
+  const handleError = (key: string) => {
+    setErrors((pv) => ({ ...pv, [key]: true }));
+    setIsLoading(false);
   };
 
   const fetchTrips = async () => {
     setIsLoading(true);
     // set error state for dates to false if there is no departure date and stop api call
-    if (!form.departure_date || isDateOnOrBeforeToday(form?.departure_date))
-      return setErrors((pv) => ({ ...pv, dates: true }));
+    if (!form.departure_date || isDateOnOrBeforeToday(form?.departure_date)) return handleError("dates");
 
     // check if return date is on or earlier than departure date
     if (form?.return_date && isReturnDateAfterDeparture(form.departure_date, form.return_date))
-      return setErrors((pv) => ({ ...pv, dates: true }));
+      return handleError("dates");
 
     try {
       const res = await fetch(`${apiURL}/trips/suggestions`, {
@@ -56,8 +61,12 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         }),
       });
       const data = await res.json();
-      setTrips(data);
-      setIsLoading(false);
+
+      // fake timeout to emulate loading time
+      setTimeout(() => {
+        setIsLoading(false);
+        setTrips(data);
+      }, 1000);
     } catch (e) {
       console.error("Error fetching trips:", e);
       setIsLoading(false);

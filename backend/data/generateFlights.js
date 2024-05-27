@@ -69,7 +69,7 @@ const main = (numDays, source) => {
   console.log(`Flights data generated and saved to ${filePath}`);
 };
 
-main(14, "manual");
+// main(14, "manual");
 
 const initDataForSeed = () => main(14, "seed");
 
