@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { Errors, Trip, TripForm, TripsContextType } from "../types/tripTypes";
+import { useAirportsContext } from "./AirportsContext";
 
 export const TripsContext = createContext<TripsContextType | null>(null);
 
@@ -17,6 +18,8 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     dates: false,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { airports } = useAirportsContext();
 
   const apiURL = process.env.REACT_APP_FLIGHT_API_URL;
 
@@ -38,6 +41,16 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setIsLoading(false);
   };
 
+  const checkDestination = (input: string) => {
+    const normalizedInput = input.trim().toLowerCase();
+    return airports?.find(
+      (airport) =>
+        airport.code.toLowerCase() === normalizedInput ||
+        airport.city_code.toLowerCase() === normalizedInput ||
+        airport.city.toLowerCase() === normalizedInput
+    )?.code;
+  };
+
   const fetchTrips = async () => {
     setIsLoading(true);
     // set error state for dates to false if there is no departure date and stop api call
@@ -47,6 +60,9 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (form?.return_date && isReturnDateAfterDeparture(form.departure_date, form.return_date))
       return handleError("dates");
 
+    const matchedDeparture = checkDestination(form.departure);
+    const matchedDestination = checkDestination(form.destination);
+
     try {
       const res = await fetch(`${apiURL}/trips/suggestions`, {
         method: "POST",
@@ -54,8 +70,8 @@ export const TripsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          departure: form.departure,
-          destination: form.destination,
+          departure: matchedDeparture,
+          destination: matchedDestination,
           departure_date: form.departure_date?.toISOString(),
           return_date: tripType === "round-trip" ? form.return_date?.toISOString() : null,
         }),
