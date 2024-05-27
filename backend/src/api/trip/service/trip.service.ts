@@ -32,7 +32,7 @@ export class TripService {
 
       // construct trip suggestions
       const trips = directFlights.map((flight: Flight) => ({
-        flight,
+        outgoingFlight: flight,
         totalPrice: flight.price,
       }));
 
